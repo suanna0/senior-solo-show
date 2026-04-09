@@ -1,0 +1,39 @@
+:root {
+  --bg: #F4F3EC;
+  --accent: #C72B2B;
+  --caption: #7E8F98;
+  --text: #000000;
+  --margin: 40px;
+  --gutter: 20px;
+  --cols: 8;
+  --font: 'EB Garamond', Georgia, serif;
+  --font-mono: 'Geist Mono', monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* 8-column grid container */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  column-gap: var(--gutter);
+  padding: var(--margin);
+}

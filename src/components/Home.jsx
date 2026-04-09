@@ -1,0 +1,155 @@
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import './Home.css'
+
+const works = [
+  { title: 'Envy Me', year: 2026, image: 'https://de1wwae7728z6.cloudfront.net/images/paint/envy_me.jpg', medium: 'Oil on wood panel', dimensions: '10 x 10 inches' },
+  { title: 'Why must they grow up and lose it all?', year: 2026, image: 'https://de1wwae7728z6.cloudfront.net/images/paint/why_must_they.jpg', medium: 'Oil on wood panel', dimensions: '16 x 12 inches' },
+  { title: 'Good Game', year: 2026, image: 'https://de1wwae7728z6.cloudfront.net/images/paint/good_game.jpg', medium: 'Oil on canvas', dimensions: '11 x 14 inches each' },
+  { title: 'Warm Up / Andromeda', year: 2026, image: 'https://de1wwae7728z6.cloudfront.net/images/paint/warm_up_andromeda.jpg', medium: 'Oil on wood panel', dimensions: '48 x 15 inches' },
+  { title: 'Two Birds', year: 2026, image: 'https://de1wwae7728z6.cloudfront.net/images/paint/two_birds.jpg', medium: 'Oil on canvas', dimensions: '24 x 36 inches' },
+  { title: 'Wreaking Havoc on Tantau Ave', year: 2025, image: 'https://de1wwae7728z6.cloudfront.net/images/photo/tantau/tantau_1.jpg', medium: 'Photography', dimensions: '' },
+  { title: 'Luncheon at Yosemite', year: 2025, image: 'https://de1wwae7728z6.cloudfront.net/images/paint/yosemite_luncheon.jpg', medium: 'Oil on wood panel', dimensions: '46.5 x 24 inches' },
+  { title: '3464 19th Street', year: 2025, image: 'https://de1wwae7728z6.cloudfront.net/images/paint/3464.jpg', medium: 'Oil on two wooden panels (diptych)', dimensions: '10 x 10 inches each' },
+  { title: 'Marco Polo', year: 2025, image: 'https://de1wwae7728z6.cloudfront.net/images/paint/marco_polo.jpeg', medium: 'Oil on mdf', dimensions: '12 x 16 inches' },
+  { title: 'Running Away from the Memory Diagram', year: 2025, image: 'https://de1wwae7728z6.cloudfront.net/images/paint/running_away.JPG', medium: 'Oil on canvas', dimensions: '6.5 x 7 inches' },
+  { title: 'Regular Bride', year: 2025, image: 'https://de1wwae7728z6.cloudfront.net/images/paint/regular_bride.JPG', medium: 'Oil on cardboard', dimensions: 'variable dimension' },
+  { title: 'Time for Dancing Shoes', year: 2025, image: 'https://de1wwae7728z6.cloudfront.net/images/paint/time_for_dancing_shoes.jpg', medium: 'Oil on wood panel', dimensions: '5.5 x 24 inches' },
+  { title: 'Return Offer', year: 2025, image: 'https://de1wwae7728z6.cloudfront.net/images/paint/return_offer.jpg', medium: 'Oil on canvas', dimensions: '24 x 30 inches' },
+  { title: 'Untitled', year: 2025, image: 'https://de1wwae7728z6.cloudfront.net/images/paint/untitled_aidan.jpg', medium: 'Oil on canvas', dimensions: '16 x 20 inches' },
+  { title: 'China Beach', year: 2025, image: 'https://de1wwae7728z6.cloudfront.net/images/paint/china_beach.jpg', medium: 'Oil on wood panel', dimensions: '12 x 12 inches' },
+  { title: 'Finale', year: 2025, image: 'https://de1wwae7728z6.cloudfront.net/images/paint/finale.jpg', medium: 'Oil on canvas, wood panel', dimensions: 'variable dimension' },
+  { title: 'Untitled (Room)', year: 2024, image: 'https://de1wwae7728z6.cloudfront.net/images/paint/printer_paper_2.jpg', medium: 'Graphite', dimensions: '8.5 x 11 inches' },
+  { title: 'Kaitlyn, Jessie', year: 2024, image: 'https://de1wwae7728z6.cloudfront.net/images/paint/kaitlyn_jessie.JPG', medium: 'Oil on wood panel', dimensions: '16 x 12 inches' },
+  { title: 'The Computer is a Friend', year: 2024, image: 'https://de1wwae7728z6.cloudfront.net/images/paint/computer.JPG', medium: 'Oil on canvas', dimensions: '20 x 24 inches' },
+  { title: 'Haircut', year: 2024, image: 'https://de1wwae7728z6.cloudfront.net/images/paint/haircut.jpg', medium: 'Oil on canvas', dimensions: '24 x 36 inches' },
+  { title: 'Dad in Texas', year: 2023, image: 'https://de1wwae7728z6.cloudfront.net/images/photo/personal/001_dad_in_texas.jpg', medium: 'Photography', dimensions: '' },
+  { title: '双 (Pair)', year: 2023, image: 'https://de1wwae7728z6.cloudfront.net/images/paint/shuang.jpg', medium: 'Oil on canvas', dimensions: '24 x 48 inches' },
+]
+
+export default function Home() {
+  const leftRef = useRef(null)
+  const bioRef = useRef(null)
+  const previewRef = useRef(null)
+  const imgRef = useRef(null)
+  const mediumRef = useRef(null)
+  const dimensionsRef = useRef(null)
+  const indicatorRefs = useRef([])
+  const itemRefs = useRef([])
+  const activeIndexRef = useRef(null)
+  const orientations = useRef({})
+
+  // Preload images and compute orientations
+  useEffect(() => {
+    works.forEach((work) => {
+      if (!work.image) return
+      const img = new Image()
+      img.onload = () => {
+        const ratio = img.naturalWidth / img.naturalHeight
+        orientations.current[work.title] = ratio > 1.05 ? 'landscape' : ratio < 0.95 ? 'portrait' : 'square'
+      }
+      img.src = work.image
+    })
+  }, [])
+
+  const handleMouseEnter = (work, index) => {
+    const orientation = orientations.current[work.title] ?? 'landscape'
+
+    // Swap left panel class directly — no React re-render
+    if (leftRef.current) {
+      leftRef.current.className = `home__left${orientation !== 'landscape' ? ` home__left--${orientation}` : ''}`
+    }
+
+    // Update image src and captions directly
+    if (imgRef.current) imgRef.current.src = work.image || ''
+    if (mediumRef.current) mediumRef.current.textContent = work.medium
+    if (dimensionsRef.current) dimensionsRef.current.textContent = work.dimensions
+
+    // Swap bio ↔ preview
+    if (bioRef.current) bioRef.current.style.display = 'none'
+    if (previewRef.current) previewRef.current.style.display = 'flex'
+
+    // Collapse previous indicator + reset color
+    if (activeIndexRef.current !== null && activeIndexRef.current !== index) {
+      const prev = indicatorRefs.current[activeIndexRef.current]
+      if (prev) { gsap.killTweensOf(prev); gsap.to(prev, { width: 0, marginRight: 0, opacity: 0, duration: 0.12, ease: 'power2.in' }) }
+      const prevItem = itemRefs.current[activeIndexRef.current]
+      if (prevItem) prevItem.style.color = ''
+    }
+
+    // Expand current indicator + set color
+    activeIndexRef.current = index
+    const curr = indicatorRefs.current[index]
+    if (curr) { gsap.killTweensOf(curr); gsap.to(curr, { width: 8, marginRight: 10, opacity: 1, duration: 0.15, ease: 'power2.out' }) }
+    const currItem = itemRefs.current[index]
+    if (currItem) currItem.style.color = '#7E8F98'
+  }
+
+  const handleMouseLeave = () => {
+    // Swap back
+    if (bioRef.current) bioRef.current.style.display = 'flex'
+    if (previewRef.current) previewRef.current.style.display = 'none'
+    if (leftRef.current) leftRef.current.className = 'home__left'
+
+    // Collapse indicator + reset color
+    if (activeIndexRef.current !== null) {
+      const ref = indicatorRefs.current[activeIndexRef.current]
+      if (ref) { gsap.killTweensOf(ref); gsap.to(ref, { width: 0, marginRight: 0, opacity: 0, duration: 0.12, ease: 'power2.in' }) }
+      const item = itemRefs.current[activeIndexRef.current]
+      if (item) item.style.color = ''
+      activeIndexRef.current = null
+    }
+  }
+
+  return (
+    <section className="home grid">
+      <div className="home__left" ref={leftRef}>
+        <div className="home__text" ref={bioRef}>
+          <p>
+            Silicon Valley Girl reflects on the adolescent queer experience of growing up in the San Francisco
+            Bay Area before the widespread use of artificial intelligence. Portraits, saturated landscapes, and
+            the misuse of academic imagery embody a critical yet playful exploration of heterosexuality,
+            "airport beauty," and quiet absurdities, set alongside the irreversible consequences of the
+            technothropocene.
+          </p>
+          <p>
+            Across 22 works, Zhong aims to represent the arduous yet meticulous labor of computer
+            scientists within a contemporary art context, offering a glimpse of what computer science might
+            become in the absence of fiscal motivation.
+          </p>
+        </div>
+        <div className="home__preview" ref={previewRef} style={{ display: 'none' }}>
+          <img ref={imgRef} className="home__preview-img" alt="" />
+          <div className="home__caption">
+            <div className="home__caption-col home__caption-labels">
+              <span>MEDIUM</span>
+              <span>DIMENSIONS</span>
+            </div>
+            <div className="home__caption-col home__caption-values">
+              <span ref={mediumRef} />
+              <span ref={dimensionsRef} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ul className="home__works" onMouseLeave={handleMouseLeave}>
+        {works.map((work, i) => (
+          <li
+            key={i}
+            ref={el => itemRefs.current[i] = el}
+            className="home__work-item"
+            onMouseEnter={() => handleMouseEnter(work, i)}
+          >
+            <span
+              className="home__work-indicator"
+              ref={el => indicatorRefs.current[i] = el}
+              aria-hidden="true"
+            />
+            {work.title}<span className="home__year">[{work.year}]</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
