@@ -6,6 +6,7 @@
 /* Left panel: cols 1–4 (landscape), 1–3 (square), 1–2 (portrait) */
 .home__left {
   grid-column: 1 / 5;
+  align-self: stretch;
 }
 
 .home__left--square {
@@ -31,6 +32,8 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  position: sticky;
+  top: 40px;
 }
 
 .home__preview-img {
@@ -78,22 +81,34 @@
 }
 
 .home__work-item {
+  position: relative;
   display: flex;
   align-items: center;
   cursor: default;
 }
 
 .home__work-indicator {
-  display: inline-block;
-  width: 0;
+  position: absolute;
+  left: 0;
+  width: 8px;
   height: 14px;
   background-color: var(--caption);
-  flex-shrink: 0;
   opacity: 0;
-  overflow: hidden;
+  transition: opacity 0.15s ease-out;
 }
 
-.home__work-item--active {
+.home__work-text {
+  display: inline-block;
+  transform: translateX(0);
+  transition: transform 0.15s ease-out, color 0.15s ease-out;
+}
+
+.home__work-item--active .home__work-indicator {
+  opacity: 1;
+}
+
+.home__work-item--active .home__work-text {
+  transform: translateX(18px);
   color: var(--caption);
 }
 

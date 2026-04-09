@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
 import './Home.css'
 
 const works = [
@@ -8,7 +7,7 @@ const works = [
   { title: 'Good Game', year: 2026, image: 'https://de1wwae7728z6.cloudfront.net/images/paint/good_game.jpg', medium: 'Oil on canvas', dimensions: '11 x 14 inches each' },
   { title: 'Warm Up / Andromeda', year: 2026, image: 'https://de1wwae7728z6.cloudfront.net/images/paint/warm_up_andromeda.jpg', medium: 'Oil on wood panel', dimensions: '48 x 15 inches' },
   { title: 'Two Birds', year: 2026, image: 'https://de1wwae7728z6.cloudfront.net/images/paint/two_birds.jpg', medium: 'Oil on canvas', dimensions: '24 x 36 inches' },
-  { title: 'Wreaking Havoc on Tantau Ave', year: 2025, image: 'https://de1wwae7728z6.cloudfront.net/images/photo/tantau/tantau_1.jpg', medium: 'Photography', dimensions: '' },
+  { title: 'Wreaking Havoc on Tantau Ave', year: 2025, image: 'https://de1wwae7728z6.cloudfront.net/images/photo/tantau/tantau_1.jpg', medium: 'Photography', dimensions: '12 x 18 inches' },
   { title: 'Luncheon at Yosemite', year: 2025, image: 'https://de1wwae7728z6.cloudfront.net/images/paint/yosemite_luncheon.jpg', medium: 'Oil on wood panel', dimensions: '46.5 x 24 inches' },
   { title: '3464 19th Street', year: 2025, image: 'https://de1wwae7728z6.cloudfront.net/images/paint/3464.jpg', medium: 'Oil on two wooden panels (diptych)', dimensions: '10 x 10 inches each' },
   { title: 'Marco Polo', year: 2025, image: 'https://de1wwae7728z6.cloudfront.net/images/paint/marco_polo.jpeg', medium: 'Oil on mdf', dimensions: '12 x 16 inches' },
@@ -23,7 +22,7 @@ const works = [
   { title: 'Kaitlyn, Jessie', year: 2024, image: 'https://de1wwae7728z6.cloudfront.net/images/paint/kaitlyn_jessie.JPG', medium: 'Oil on wood panel', dimensions: '16 x 12 inches' },
   { title: 'The Computer is a Friend', year: 2024, image: 'https://de1wwae7728z6.cloudfront.net/images/paint/computer.JPG', medium: 'Oil on canvas', dimensions: '20 x 24 inches' },
   { title: 'Haircut', year: 2024, image: 'https://de1wwae7728z6.cloudfront.net/images/paint/haircut.jpg', medium: 'Oil on canvas', dimensions: '24 x 36 inches' },
-  { title: 'Dad in Texas', year: 2023, image: 'https://de1wwae7728z6.cloudfront.net/images/photo/personal/001_dad_in_texas.jpg', medium: 'Photography', dimensions: '' },
+  { title: 'Dad in Texas', year: 2023, image: 'https://de1wwae7728z6.cloudfront.net/images/photo/personal/001_dad_in_texas.jpg', medium: 'Photography', dimensions: '12 x 8 inches' },
   { title: '双 (Pair)', year: 2023, image: 'https://de1wwae7728z6.cloudfront.net/images/paint/shuang.jpg', medium: 'Oil on canvas', dimensions: '24 x 48 inches' },
 ]
 
@@ -34,7 +33,6 @@ export default function Home() {
   const imgRef = useRef(null)
   const mediumRef = useRef(null)
   const dimensionsRef = useRef(null)
-  const indicatorRefs = useRef([])
   const itemRefs = useRef([])
   const activeIndexRef = useRef(null)
   const orientations = useRef({})
@@ -69,20 +67,12 @@ export default function Home() {
     if (bioRef.current) bioRef.current.style.display = 'none'
     if (previewRef.current) previewRef.current.style.display = 'flex'
 
-    // Collapse previous indicator + reset color
+    // Toggle active class
     if (activeIndexRef.current !== null && activeIndexRef.current !== index) {
-      const prev = indicatorRefs.current[activeIndexRef.current]
-      if (prev) { gsap.killTweensOf(prev); gsap.to(prev, { width: 0, marginRight: 0, opacity: 0, duration: 0.12, ease: 'power2.in' }) }
-      const prevItem = itemRefs.current[activeIndexRef.current]
-      if (prevItem) prevItem.style.color = ''
+      itemRefs.current[activeIndexRef.current]?.classList.remove('home__work-item--active')
     }
-
-    // Expand current indicator + set color
     activeIndexRef.current = index
-    const curr = indicatorRefs.current[index]
-    if (curr) { gsap.killTweensOf(curr); gsap.to(curr, { width: 8, marginRight: 10, opacity: 1, duration: 0.15, ease: 'power2.out' }) }
-    const currItem = itemRefs.current[index]
-    if (currItem) currItem.style.color = '#7E8F98'
+    itemRefs.current[index]?.classList.add('home__work-item--active')
   }
 
   const handleMouseLeave = () => {
@@ -91,12 +81,8 @@ export default function Home() {
     if (previewRef.current) previewRef.current.style.display = 'none'
     if (leftRef.current) leftRef.current.className = 'home__left'
 
-    // Collapse indicator + reset color
     if (activeIndexRef.current !== null) {
-      const ref = indicatorRefs.current[activeIndexRef.current]
-      if (ref) { gsap.killTweensOf(ref); gsap.to(ref, { width: 0, marginRight: 0, opacity: 0, duration: 0.12, ease: 'power2.in' }) }
-      const item = itemRefs.current[activeIndexRef.current]
-      if (item) item.style.color = ''
+      itemRefs.current[activeIndexRef.current]?.classList.remove('home__work-item--active')
       activeIndexRef.current = null
     }
   }
@@ -141,12 +127,10 @@ export default function Home() {
             className="home__work-item"
             onMouseEnter={() => handleMouseEnter(work, i)}
           >
-            <span
-              className="home__work-indicator"
-              ref={el => indicatorRefs.current[i] = el}
-              aria-hidden="true"
-            />
-            {work.title}<span className="home__year">[{work.year}]</span>
+            <span className="home__work-indicator" aria-hidden="true" />
+            <span className="home__work-text">
+              {work.title}<span className="home__year">[{work.year}]</span>
+            </span>
           </li>
         ))}
       </ul>

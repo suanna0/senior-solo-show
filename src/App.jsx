@@ -3,6 +3,7 @@ import Nav from './components/Nav'
 import Home from './components/Home'
 import About from './components/About'
 import Info from './components/Info'
+import Footer from './components/Footer'
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
           <Route path="/info" element={<Info />} />
         </Routes>
       </main>
+      <Footer />
     </>
   )
 }

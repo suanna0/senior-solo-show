@@ -6,7 +6,7 @@
   --margin: 40px;
   --gutter: 20px;
   --cols: 8;
-  --font: 'EB Garamond', Georgia, serif;
+  --font: 'EB Garamond', 'Noto Serif TC', Georgia, serif;
   --font-mono: 'Geist Mono', monospace;
 }
 
