@@ -17,10 +17,33 @@ export default function Info() {
           become in the absence of fiscal motivation.
         </p>
       </div>
+
       <div className="info__content">
-        <p>The Frame Gallery<br />
-5200 Forbes Ave, Pittsburgh, PA 15213<br />
-Opening Reception: Fri, Apr 24, 6-9 PM</p>
+        <div className="info__title">SUANNA ZHONG'S BXA CAPSTONE</div>
+
+        <div className="info__section">
+          <span className="info__label">LOCATION</span>
+          <span>THE FRAME GALLERY</span>
+
+          <span className="info__label">ADDRESS</span>
+          <span>5200 FORBES AVE,<br />PITTSBURGH, PA</span>
+        </div>
+
+        <div className="info__section">
+          <span className="info__show-days">SHOW DAYS</span>
+          <span />
+
+          <span className="info__label">04.24</span>
+          <span>
+            <span className="info__label">[RECEPTION]</span><br />6:00PM – 9:00PM
+          </span>
+
+          <span className="info__label">04.25</span>
+          <span>12:00PM – 5:00PM</span>
+
+          <span className="info__label">04.26</span>
+          <span>12:00PM – 5:00PM</span>
+        </div>
       </div>
     </section>
   )
