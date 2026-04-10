@@ -39,8 +39,12 @@ export default function Home() {
 
   // Preload images and compute orientations
   useEffect(() => {
+    // Manual overrides
+    orientations.current['Two Birds'] = 'portrait-wide'
+    orientations.current['Marco Polo'] = 'portrait-wide'
+
     works.forEach((work) => {
-      if (!work.image) return
+      if (!work.image || orientations.current[work.title]) return
       const img = new Image()
       img.onload = () => {
         const ratio = img.naturalWidth / img.naturalHeight
