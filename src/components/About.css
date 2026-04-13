@@ -23,3 +23,17 @@
   letter-spacing: 0.05em;
   line-height: 1.6;
 }
+
+@media (max-width: 768px) {
+  .about {
+    padding-top: 15px;
+  }
+
+  .about__bio {
+    display: none;
+  }
+
+  .about__content {
+    grid-column: 1 / 5;
+  }
+}

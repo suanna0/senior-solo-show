@@ -143,6 +143,24 @@ export default function Home() {
           </li>
         ))}
       </ul>
+
+      {/* Mobile-only image list */}
+      <ul className="home__mobile-works">
+        {works.map((work, i) => (
+          <li key={i} className="home__mobile-work">
+            {work.image && <img src={work.image} alt={work.title} className="home__mobile-img" />}
+            <div className="home__mobile-details">
+              <span className="home__mobile-name">
+                {work.title}<span className="home__year">[{work.year}]</span>
+              </span>
+              <div className="home__mobile-meta">
+                <span>{work.medium}</span>
+                <span>{work.dimensions}</span>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
     </section>
   )
 }

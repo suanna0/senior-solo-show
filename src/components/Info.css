@@ -50,3 +50,17 @@
 .info__date--gap {
   margin-bottom: 16px;
 }
+
+@media (max-width: 768px) {
+  .info {
+    padding-top: 15px;
+  }
+
+  .info__bio {
+    display: none;
+  }
+
+  .info__content {
+    grid-column: 1 / 5;
+  }
+}
