@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './Home.css'
 
 const works = [
@@ -27,6 +27,14 @@ const works = [
 ]
 
 export default function Home() {
+  const [showBackToTop, setShowBackToTop] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setShowBackToTop(window.scrollY > 200)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   const leftRef = useRef(null)
   const bioRef = useRef(null)
   const previewRef = useRef(null)
@@ -161,6 +169,14 @@ export default function Home() {
           </li>
         ))}
       </ul>
+
+      <button
+        className={`home__back-to-top${showBackToTop ? ' home__back-to-top--visible' : ''}`}
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        aria-label="Back to top"
+      >
+        BACK TO TOP ↑
+      </button>
     </section>
   )
 }

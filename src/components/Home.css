@@ -203,4 +203,34 @@
     letter-spacing: 0.05em;
     color: var(--caption);
   }
+
+}
+
+.home__back-to-top {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .home__back-to-top {
+    display: block;
+    position: fixed;
+    bottom: 24px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--caption);
+    cursor: pointer;
+    padding: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+
+  .home__back-to-top--visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
 }
