@@ -10,3 +10,9 @@
   letter-spacing: 0.05em;
   color: var(--caption);
 }
+
+@media (max-width: 768px) {
+  .footer__link {
+    grid-column: 1 / 5;
+  }
+}

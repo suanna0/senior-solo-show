@@ -38,3 +38,14 @@ a {
   column-gap: var(--gutter);
   padding: var(--margin);
 }
+
+@media (max-width: 768px) {
+  :root {
+    --margin: 15px;
+    --gutter: 10px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

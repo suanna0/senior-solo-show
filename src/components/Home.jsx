@@ -93,6 +93,11 @@ export default function Home() {
 
   return (
     <section className="home grid">
+      <div className="home__mobile-brand">
+        <span className="home__mobile-title">Silicon Valley Girl</span>
+        <span className="nav__subtitle">LABOR IN PLAIN SIGHT<span className="nav__cursor">|</span></span>
+      </div>
+
       <div className="home__left" ref={leftRef}>
         <div className="home__text" ref={bioRef}>
           <p>

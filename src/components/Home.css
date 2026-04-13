@@ -130,3 +130,48 @@
   vertical-align: middle;
   color: inherit;
 }
+
+/* Mobile brand — hidden on desktop */
+.home__mobile-brand {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .home {
+    padding-top: 15px;
+  }
+
+  .home__mobile-brand {
+    display: none;
+  }
+
+  .home__left {
+    grid-column: 1 / 5;
+  }
+
+  .home__text {
+    font-size: 20px;
+  }
+
+  /* Never show image preview on mobile */
+  .home__preview {
+    display: none !important;
+  }
+
+  .home__works {
+    grid-column: 1 / 5;
+    font-size: 20px;
+    gap: 18px;
+    margin-top: 60px;
+  }
+
+  /* Disable hover active styles on mobile */
+  .home__work-item--active .home__work-text {
+    transform: none;
+    color: inherit;
+  }
+
+  .home__work-item--active .home__work-indicator {
+    opacity: 0;
+  }
+}

@@ -7,9 +7,11 @@ const SUBTITLE = 'LABOR IN PLAIN SIGHT'
 
 export default function Nav() {
   const [displayed, setDisplayed] = useState('')
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const aboutCircleRef = useRef(null)
   const infoCircleRef = useRef(null)
   const { pathname } = useLocation()
+  const isHome = pathname === '/'
   const isAbout = pathname === '/about'
   const isInfo = pathname === '/info'
 
@@ -70,34 +72,86 @@ export default function Nav() {
     gsap.to(ref.current, { width: 0, marginRight: 0, opacity: 0, duration: 0.12, ease: 'power2.in' })
   }
 
+  const closeMenu = () => setMobileMenuOpen(false)
+
   return (
-    <header className="nav grid">
-      <div className="nav__brand">
+    <>
+      <header className="nav grid">
+        {/* Mobile-only MENU toggle — before brand in DOM so it renders above */}
+        <button
+          className="nav__menu-toggle"
+          onClick={() => setMobileMenuOpen(o => !o)}
+          aria-expanded={mobileMenuOpen}
+        >
+          MENU
+        </button>
+
+        <div className="nav__brand">
+          <Link to="/" className="nav__title">Silicon Valley Girl</Link>
+          <span className="nav__subtitle">
+            {displayed}<span className="nav__cursor">|</span>
+          </span>
+        </div>
+
+        <nav className="nav__links">
+          <Link
+            to="/about"
+            className={`nav__link${isAbout ? ' nav__link--active' : ''}`}
+            onMouseEnter={() => handleEnter(aboutCircleRef, isAbout)}
+            onMouseLeave={() => handleLeave(aboutCircleRef, isAbout)}
+          >
+            <span className={`nav__circle${isAbout ? ' nav__circle--active' : ''}`} ref={aboutCircleRef} aria-hidden="true" />
+            SUANNA ZHONG
+          </Link>
+          <Link
+            to="/info"
+            className={`nav__link nav__link--info${isInfo ? ' nav__link--active' : ''}`}
+            onMouseEnter={() => handleEnter(infoCircleRef, isInfo)}
+            onMouseLeave={() => handleLeave(infoCircleRef, isInfo)}
+          >
+            <span className={`nav__circle${isInfo ? ' nav__circle--active' : ''}`} ref={infoCircleRef} aria-hidden="true" />
+            INFORMATION
+          </Link>
+        </nav>
+      </header>
+
+      {/* Mobile drawer — always in DOM, open/close via CSS transition */}
+      <div className={`nav__drawer${mobileMenuOpen ? ' nav__drawer--open' : ''}`}>
+        <nav className="nav__drawer-inner">
+          <Link
+            to="/"
+            className={`nav__overlay-link${isHome ? ' nav__overlay-link--active' : ''}`}
+            onClick={closeMenu}
+          >
+            {isHome && <span className="nav__overlay-bullet" />}
+            SILICON VALLEY GIRL
+          </Link>
+          <Link
+            to="/about"
+            className={`nav__overlay-link${isAbout ? ' nav__overlay-link--active' : ''}`}
+            onClick={closeMenu}
+          >
+            {isAbout && <span className="nav__overlay-bullet" />}
+            SUANNA ZHONG
+          </Link>
+          <Link
+            to="/info"
+            className={`nav__overlay-link${isInfo ? ' nav__overlay-link--active' : ''}`}
+            onClick={closeMenu}
+          >
+            {isInfo && <span className="nav__overlay-bullet" />}
+            INFORMATION
+          </Link>
+        </nav>
+      </div>
+
+      {/* Mobile-only brand — sits below the drawer */}
+      <div className="nav__mobile-brand">
         <Link to="/" className="nav__title">Silicon Valley Girl</Link>
         <span className="nav__subtitle">
           {displayed}<span className="nav__cursor">|</span>
         </span>
       </div>
-      <nav className="nav__links">
-        <Link
-          to="/about"
-          className={`nav__link${isAbout ? ' nav__link--active' : ''}`}
-          onMouseEnter={() => handleEnter(aboutCircleRef, isAbout)}
-          onMouseLeave={() => handleLeave(aboutCircleRef, isAbout)}
-        >
-          <span className={`nav__circle${isAbout ? ' nav__circle--active' : ''}`} ref={aboutCircleRef} aria-hidden="true" />
-          SUANNA ZHONG
-        </Link>
-        <Link
-          to="/info"
-          className={`nav__link nav__link--info${isInfo ? ' nav__link--active' : ''}`}
-          onMouseEnter={() => handleEnter(infoCircleRef, isInfo)}
-          onMouseLeave={() => handleLeave(infoCircleRef, isInfo)}
-        >
-          <span className={`nav__circle${isInfo ? ' nav__circle--active' : ''}`} ref={infoCircleRef} aria-hidden="true" />
-          INFORMATION
-        </Link>
-      </nav>
-    </header>
+    </>
   )
 }
