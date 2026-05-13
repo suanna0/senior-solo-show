@@ -3,7 +3,6 @@
 }
 
 .footer__link {
-  grid-column: 8 / 9;
   font-family: var(--font-mono);
   font-size: 14px;
   text-transform: uppercase;
@@ -11,8 +10,28 @@
   color: var(--caption);
 }
 
+.footer__link--left {
+  grid-column: 1 / 2;
+}
+
+.footer__link--right {
+  grid-column: 8 / 9;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.footer__link--name {
+  color: inherit;
+  text-decoration: none;
+}
+
 @media (max-width: 768px) {
-  .footer__link {
-    grid-column: 1 / 5;
+  .footer__link--left {
+    grid-column: 1 / 3;
+  }
+
+  .footer__link--right {
+    grid-column: 3 / 5;
+    text-align: right;
   }
 }
