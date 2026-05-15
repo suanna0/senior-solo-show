@@ -11,7 +11,7 @@ export default function Footer() {
       >
         SUANNAZHONG.COM
       </a>
-      <span className="footer__link footer__link--right">Designed by <a href="https://melissaqin.com" target="_blank" rel="noopener noreferrer" className="footer__link--name">Melissa Qin</a></span>
+      <span className="footer__link footer__link--right">Designed by <br className="footer__break" /><a href="https://melissaqin.com" target="_blank" rel="noopener noreferrer" className="footer__link--name">Melissa Qin</a></span>
     </footer>
   )
 }

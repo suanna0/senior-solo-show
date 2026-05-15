@@ -20,6 +20,10 @@
   white-space: nowrap;
 }
 
+.footer__break {
+  display: none;
+}
+
 .footer__link--name {
   color: inherit;
   text-decoration: none;
@@ -33,5 +37,10 @@
   .footer__link--right {
     grid-column: 3 / 5;
     text-align: right;
+    white-space: normal;
+  }
+
+  .footer__break {
+    display: inline;
   }
 }
