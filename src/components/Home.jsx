@@ -7,7 +7,7 @@ const works = [
   { title: 'Good Game', year: 2026, image: 'https://de1wwae7728z6.cloudfront.net/images/art-website/good_game.jpg', medium: 'Oil on canvas', dimensions: '11 x 14 inches each' },
   { title: 'Warm Up / Andromeda', year: 2026, image: 'https://de1wwae7728z6.cloudfront.net/images/art-website/warm_up_andromeda.jpg', medium: 'Oil on wood panel', dimensions: '48 x 15 inches' },
   { title: 'Two Birds', year: 2026, image: 'https://de1wwae7728z6.cloudfront.net/images/art-website/two_birds.jpg', medium: 'Oil on canvas', dimensions: '24 x 36 inches' },
-  { title: 'Wreaking Havoc on Tantau Ave', year: 2025, image: 'https://de1wwae7728z6.cloudfront.net/images/photo/tantau/tantau_1.jpg', medium: 'Photography', dimensions: '12 x 18 inches' },
+  { title: 'Wreaking Havoc on Tantau Ave', year: 2025, image: 'https://de1wwae7728z6.cloudfront.net/images/art-website/photo/tantau/tantau_1.jpg', medium: 'Photography', dimensions: '12 x 18 inches' },
   { title: 'Luncheon at Yosemite', year: 2025, image: 'https://de1wwae7728z6.cloudfront.net/images/art-website/yosemite_luncheon.jpg', medium: 'Oil on wood panel', dimensions: '46.5 x 24 inches' },
   { title: '3464 19th Street', year: 2025, image: 'https://de1wwae7728z6.cloudfront.net/images/art-website/3464.jpg', medium: 'Oil on two wooden panels (diptych)', dimensions: '10 x 10 inches each' },
   { title: 'Marco Polo', year: 2025, image: 'https://de1wwae7728z6.cloudfront.net/images/art-website/marco_polo.jpeg', medium: 'Oil on mdf', dimensions: '12 x 16 inches' },
